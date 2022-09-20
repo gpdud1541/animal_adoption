@@ -1,0 +1,82 @@
+spring:
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3307/animal?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul"
+    username: 유저이름
+    password: 비밀번호
+    hikari:
+      auto-commit: false
+      connection-test-query: SELECT 1
+      minimum-idle: 10
+      maximum-pool-size: 50
+      transaction-isolation: TRANSACTION_READ_UNCOMMITTED
+      pool-name: pool-animal
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        hbm2ddl.auto: update
+        search:
+          default:
+            directory_provider: filesystem
+    generate-ddl: false
+    open-in-view: false
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    date-format: yy-MM-dd HH:mm:ss
+    time-zone: Asia/Seoul
+
+  mvc:
+    static-path-pattern: /static/**
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+  resource:
+    static-locations:
+      - classpath:/static/
+    cache:
+      period: 0
+
+  http:
+    multipart:
+      enabled=false: false
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    multipart:
+      file-size-threshold: 512MB
+      location: C:/Temp/
+      max-file-size: 300MB
+      max-request-size: 500MB
+  session:
+    timeout: 60*60*24
+
+logging:
+  exception-conversion-word: '%wEx'
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:-%5p}){green} %clr(${PID:- }){magenta} %clr(%-40.40logger{39}){cyan} %clr(: %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}){faint}'
+  level:
+    web: debug
